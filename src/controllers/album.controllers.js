@@ -1,7 +1,6 @@
-import { BadRequestError } from "../errors";
-import asyncWrapper from "../middleware/async";
-import albumModel from "../model/album.model";
-import { BadRequestError } from "../errors/index.js";
+import asyncWrapper from "../middleware/async.js";
+import albumModel from "../model/album.model.js";
+import {BadRequestError}  from "../errors/index.js";
 import { validationResult } from 'express-validator';
 
 
