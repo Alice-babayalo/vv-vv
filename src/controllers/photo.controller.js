@@ -16,6 +16,7 @@ const addPhoto = asyncWrapper(async (req, res, next) => {
         album: req.body.album
     })
     newphoto.save()
+    res.status(200).json({message:"Photo added successfully!"});
 })
 
 export default addPhoto;

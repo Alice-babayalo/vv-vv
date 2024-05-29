@@ -10,7 +10,7 @@ const albumShema = mongoose.Schema({
     }
 },
 {
-    timeStamp:true
+    timestamps: true 
 }
 );
 

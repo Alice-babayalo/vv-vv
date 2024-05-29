@@ -10,6 +10,7 @@ export const addAlbum = asyncWrapper (async (req, res, next) => {
         return next(new BadRequestError(errors.array()[0].msg));
     }
     const album = await albumModel.create(req.body)
+    res.status(200).json({message:"Album created successfully!"})
 })
 
 export const deleteAlbum = asyncWrapper(async (req, res, next) => {
