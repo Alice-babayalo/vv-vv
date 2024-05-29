@@ -2,8 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const photoShema = mongoose.Schema({
     url: {
-        type: String,
-        required: true
+        type: String
     },
     description: {
         type: String

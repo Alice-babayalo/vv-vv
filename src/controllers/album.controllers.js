@@ -28,3 +28,11 @@ export const allAlbums = asyncWrapper(async (req, res, next) => {
         all_albums: allalbums
     })
 });
+
+export const updateAlbums = asyncWrapper(async (req, res, next) => {
+    const album = await albumModel.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    if (!album) {
+        res.status(404).json({ message: "album not found" });
+    }
+    res.status(200).json({ message: "album updated successfully!" , album: album });
+})

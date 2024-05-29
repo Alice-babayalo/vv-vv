@@ -3,7 +3,6 @@ import connectDb from './db.js';
 import ErrorHandlerMiddleware from '../middleware/ErrorHandler.js'
 import cors from "cors"
 import routes from '../routes/index.js';
-// import {routes} from '../routes/index.js'
 import documentation from '../doc/swagger.json' assert {"type":"json"}
 import swaggerUi from 'swagger-ui-express'
 const app = express();
@@ -12,7 +11,6 @@ const app = express();
 
 
 app.use(cors())
-
 
 app.use(express.json())
 app.use('/api', routes)
