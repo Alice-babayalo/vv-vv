@@ -20,7 +20,7 @@
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "Album object",
+                        "description": "New album to be added",
                         "schema": {
                             "$ref": "#/definitions/Album"
                         }
@@ -78,7 +78,7 @@
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "Album object",
+                        "description": "Album to be updated ",
                         "schema": {
                             "$ref": "#/definitions/Album"
                         }
@@ -123,7 +123,14 @@
                 "tags": ["Photo"],
                 "parameters": [
                     {
-                        "name": "file",
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the album to delete",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "files",
                         "in": "formData",
                         "description": "Photo file",
                         "required": true,

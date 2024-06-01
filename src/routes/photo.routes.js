@@ -4,7 +4,7 @@ import upload from '../middleware/multer.js';
 
 const photoRoute = express.Router();
 
-photoRoute.post('/add', upload.single('file'), addPhotos)
+photoRoute.post('/add', upload.array('files', 30), addPhotos);
 photoRoute.delete('/delete/:id', deletePhoto)
 photoRoute.get('/getphoto/:albumId', getPhotoByAlbumId)
 
