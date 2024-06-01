@@ -17,7 +17,7 @@ export const addAlbum = asyncWrapper (async (req, res, next) => {
 export const deleteAlbum = asyncWrapper(async (req, res, next) => {
 
     const album = await albumModel.findByIdAndDelete(req.params.id)
-    
+
     if (!album) {
         res.status(404).json({ message: "album not found" });
     }
@@ -30,7 +30,7 @@ export const deleteAlbum = asyncWrapper(async (req, res, next) => {
 
 
 export const allAlbums = asyncWrapper(async (req, res, next) => {
-    const allalbums = await hospitalModel.find({});
+    const allalbums = await albumModel.find({});
     res.status(200).json({
         number_of_albums: allalbums.length,
         all_albums: allalbums
