@@ -2,6 +2,7 @@ import asyncWrapper from "../middleware/async.js";
 import albumModel from "../model/album.model.js";
 import {BadRequestError}  from "../errors/index.js";
 import { validationResult } from 'express-validator';
+import photoModel from "../model/photo.model.js";
 
 
 export const addAlbum = asyncWrapper (async (req, res, next) => {
@@ -14,12 +15,18 @@ export const addAlbum = asyncWrapper (async (req, res, next) => {
 })
 
 export const deleteAlbum = asyncWrapper(async (req, res, next) => {
+
     const album = await albumModel.findByIdAndDelete(req.params.id)
+    
     if (!album) {
         res.status(404).json({ message: "album not found" });
     }
-    res.status(200).json({ message: "album deleted successfully!" });
-});
+    const deletedPhotos = await photoModel.deleteMany({ album: album._id });
+
+    res.status(200).json({
+        message: "Album and associated photos deleted successfully!",
+        deletedPhotosCount: deletedPhotos.deletedCount
+    });});
 
 
 export const allAlbums = asyncWrapper(async (req, res, next) => {
