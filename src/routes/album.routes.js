@@ -6,8 +6,8 @@ const albumRoute = express.Router();
 
 albumRoute.post('/add', albumValidation, addAlbum)
 albumRoute.get('/all', allAlbums)
-albumRoute.patch('/update', albumValidation, updateAlbums)
-albumRoute.delete('/delete', deleteAlbum)
+albumRoute.patch('/update/:id', albumValidation, updateAlbums)
+albumRoute.delete('/delete/:id', deleteAlbum)
 
 
 export default albumRoute

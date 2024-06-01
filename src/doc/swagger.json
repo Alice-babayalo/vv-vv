@@ -1,17 +1,267 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Blood Link",
-        "description": "An API for managing sign up, sign in, forgot password and reset password",
+        "title": "VV-VV",
+        "description": "APIs for adding albums and photos, testimonials and deleting and updating them for a married couple",
         "version": "1.0.0"
     },
-    "host": "blood-link-be.onrender.com",
+    "host": "localhost:2000",
     "basePath": "/api",
     "schemes": [
-        "https",
-        "http"
+        "http",
+        "https"
     ],
     "paths": {
-
+        "/album/add": {
+            "post": {
+                "summary": "Add a new album",
+                "tags": ["Album"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Album object",
+                        "schema": {
+                            "$ref": "#/definitions/Album"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Album added successfully"
+                    },
+                    "400": {
+                        "description": "Bad request. Invalid input"
+                    }
+                }
+            }
+        },
+        "/album/all": {
+            "get": {
+                "summary": "List of all albums",
+                "tags": ["Album"],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/album/update/{id}": {
+            "patch": {
+                "summary": "Update an existing album",
+                "tags": ["Album"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the album to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Album object",
+                        "schema": {
+                            "$ref": "#/definitions/Album"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Album updated successfully"
+                    },
+                    "404": {
+                        "description": "Album not found"
+                    }
+                }
+            }
+        },
+        "/album/delete/{id}": {
+            "delete": {
+                "summary": "Delete an album",
+                "tags": ["Album"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the album to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Album deleted successfully"
+                    },
+                    "404": {
+                        "description": "Album not found"
+                    }
+                }
+            }
+        },
+        "/photo/add": {
+            "post": {
+                "summary": "Add a new photo",
+                "tags": ["Photo"],
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "Photo file",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Photo added successfully"
+                    },
+                    "400": {
+                        "description": "Bad request. Invalid input"
+                    }
+                }
+            }
+        },
+        "/photo/delete/{id}": {
+            "delete": {
+                "summary": "Delete a photo",
+                "tags": ["Photo"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the photo to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Photo deleted successfully"
+                    },
+                    "404": {
+                        "description": "Photo not found"
+                    }
+                }
+            }
+        },
+        "/testimony/add": {
+            "post": {
+                "summary": "Add a new testimony",
+                "tags": ["Testimony"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Testimony object",
+                        "schema": {
+                            "$ref": "#/definitions/Testimony"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Testimony added successfully"
+                    },
+                    "400": {
+                        "description": "Bad request. Invalid input"
+                    }
+                }
+            }
+        },
+        "/testimony/All": {
+            "get": {
+                "summary": "Get all testimonies",
+                "tags": ["Testimony"],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/testimony/delete/{id}": {
+            "delete": {
+                "summary": "Delete a testimony",
+                "tags": ["Testimony"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the testimony to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Testimony deleted successfully"
+                    },
+                    "404": {
+                        "description": "Testimony not found"
+                    }
+                }
+            }
+        },
+        "/testimony/update/{id}": {
+            "patch": {
+                "summary": "Update an existing testimony",
+                "tags": ["Testimony"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the testimony to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Testimony object",
+                        "schema": {
+                            "$ref": "#/definitions/Testimony"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Testimony updated successfully"
+                    },
+                    "404": {
+                        "description": "Testimony not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Album": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "required":true
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "Testimony": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "required":true
+                },
+                "testimony": {
+                    "type": "string",
+                    "required":true
+                }
+            }
+        }
     }
 }

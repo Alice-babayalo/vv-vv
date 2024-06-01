@@ -6,7 +6,7 @@ const testimonyRoute = express.Router();
 
 testimonyRoute.post('/add', testimonialValidation, addTestimony)
 testimonyRoute.get('/All', allTestimonies)
-testimonyRoute.delete('/delete', deleteTestimony)
-testimonyRoute.patch('/update', testimonialValidation, updateTestimony)
+testimonyRoute.delete('/delete/:id', deleteTestimony)
+testimonyRoute.patch('/update/:id', testimonialValidation, updateTestimony)
 
 export default testimonyRoute
