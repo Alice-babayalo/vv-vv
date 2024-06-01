@@ -4,9 +4,6 @@ const photoShema = mongoose.Schema({
     url: {
         type: String
     },
-    description: {
-        type: String
-    },
     album: {
         type: Schema.Types.ObjectId,
         ref: 'album',
