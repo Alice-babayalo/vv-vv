@@ -31,3 +31,17 @@ export const deletePhoto = asyncWrapper( async (req, res, next)=>{
         photo
     })
 })
+
+
+export const getPhotoByAlbumId = asyncWrapper (async (req, res, next) =>{
+    const photo = await photoModel.find({album: req.params.albumId});
+    if (!photo){
+        return res.status(404).json({
+            message:"Photos not found"
+        })
+    }
+    res.status.json({
+        message: "Photos retrieved successfully",
+        photo
+    })
+})

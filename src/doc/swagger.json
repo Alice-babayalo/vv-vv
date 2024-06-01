@@ -38,14 +38,30 @@
         },
         "/album/all": {
             "get": {
-                "summary": "List of all albums",
-                "tags": ["Album"],
+                "summary": "List all albums",
+                "description": "The list of all albums is retrieved from the database",
+                "tags": [
+                    "Album"
+                ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "successfully retrieved a list of all albums",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Albums not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
                     }
                 }
-            }
+            }      
         },
         "/album/update/{id}": {
             "patch": {
@@ -123,6 +139,33 @@
                     }
                 }
             }
+        },
+        "/photo/getPhoto/{albumId}":{
+            "get": {
+                "summary": "List all Photos with the same id of the album",
+                "description": "The list of all photos with the same album id is retrieved from the database",
+                "tags": [
+                    "Photo"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully retrieved a list of all photos with the same album id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Photos not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }      
         },
         "/photo/delete/{id}": {
             "delete": {
