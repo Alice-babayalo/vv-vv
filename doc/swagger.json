@@ -5,7 +5,7 @@
         "description": "APIs for VV-VV",
         "version": "1.0.0"
     },
-    "host": "vv-vv.onrender.com",
+    "host": "localhost:10000",
     "basePath": "/api",
     "schemes": [
         "http",
@@ -182,6 +182,34 @@
                     }
                 }
             }      
+        },
+        "/photo/allPhoto":{
+            "get": {
+                "summary": "List all photos",
+                "description": "The list of all photos is retrieved from the database",
+                "tags": [
+                    "Album"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully retrieved a list of all photos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "photos not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }      
+
         },
         "/photo/delete/{id}": {
             "delete": {
