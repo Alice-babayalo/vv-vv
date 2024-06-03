@@ -183,12 +183,12 @@
                 }
             }      
         },
-        "/photo/allPhoto":{
+        "/photo/all":{
             "get": {
                 "summary": "List all photos",
                 "description": "The list of all photos is retrieved from the database",
                 "tags": [
-                    "Album"
+                    "Photo"
                 ],
                 "responses": {
                     "200": {

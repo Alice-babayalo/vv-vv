@@ -56,7 +56,7 @@ export const getPhotoByAlbumId = asyncWrapper (async (req, res, next) =>{
 })
 
 export const allPhotos = asyncWrapper (async(req,res, next) => {
-    const photos = photoModel.find({});
+    const photos = await photoModel.find({});
     res.status(200).json({
         message: "All photos retrieved successfully",
         photos

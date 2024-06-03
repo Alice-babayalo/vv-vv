@@ -7,6 +7,6 @@ const photoRoute = express.Router();
 photoRoute.post('/add/:albumId', upload.array('files', 30), addPhotos);
 photoRoute.delete('/delete/:id', deletePhoto)
 photoRoute.get('/getphoto/:albumId', getPhotoByAlbumId)
-photoRoute.get('/allPhotos', allPhotos)
+photoRoute.get('/all', allPhotos)
 
 export default photoRoute;
