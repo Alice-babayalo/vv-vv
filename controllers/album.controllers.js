@@ -19,7 +19,7 @@ export const deleteAlbum = asyncWrapper(async (req, res, next) => {
     const album = await albumModel.findByIdAndDelete(req.params.id)
 
     if (!album) {
-        res.status(404).json({ message: "album not found" });
+        return res.status(404).json({ message: "album not found" });
     }
     const deletedPhotos = await photoModel.deleteMany({ album: album._id });
 
