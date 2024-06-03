@@ -51,6 +51,7 @@ export const getPhotoByAlbumId = asyncWrapper (async (req, res, next) =>{
     }
     res.status(200).json({
         message: "Photos retrieved successfully",
+        numberOfPhotos: photo.length,
         photo
     })
 })
@@ -59,6 +60,7 @@ export const allPhotos = asyncWrapper (async(req,res, next) => {
     const photos = await photoModel.find({});
     res.status(200).json({
         message: "All photos retrieved successfully",
+        numberOfPhotos: photos.length,
         photos
     })
 })

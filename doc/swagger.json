@@ -8,8 +8,8 @@
     "host": "vv-vv.onrender.com",
     "basePath": "/api",
     "schemes": [
-        "http",
-        "https"
+        "https",
+        "http"
     ],
     "paths": {
         "/album/add": {
