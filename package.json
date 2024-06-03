@@ -2,7 +2,7 @@
   "name": "vv-vv",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon",
@@ -19,7 +19,7 @@
     "express-validator": "^7.1.0",
     "mongoose": "^8.4.0",
     "multer": "^1.4.5-lts.1",
-    "swagger": "^0.7.5",
+    "swagger": "^0.0.1",
     "swagger-ui-express": "^5.0.0",
     "uuid": "^9.0.1"
   },
