@@ -18,7 +18,7 @@
  */
 
 
-const ErrorHandlerMiddleware = (err, req, res, next) => {
+export const errorHandler = (err, req, res, next) => {
     let errStatus = err.statusCode || 500;
     let errMessage = err.message || "Internal Server Error";
     
@@ -49,7 +49,6 @@ const ErrorHandlerMiddleware = (err, req, res, next) => {
     });
 };
 
-export default ErrorHandlerMiddleware;
 
 
 // const ErrorHandler = (err, req, res, next) => {
