@@ -2,14 +2,14 @@
     "swagger": "2.0",
     "info": {
         "title": "VV-VV",
-        "description": "APIs for adding albums and photos, testimonials and deleting and updating them for a married couple",
+        "description": "APIs for VV-VV",
         "version": "1.0.0"
     },
-    "host": "localhost:2000",
+    "host": "vv-vv.onrender.com",
     "basePath": "/api",
     "schemes": [
-        "http",
-        "https"
+        "https",
+        "http"
     ],
     "paths": {
         "/album/add": {
