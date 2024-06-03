@@ -6,7 +6,7 @@ const photoShema = mongoose.Schema({
     },
     album: {
         type: Schema.Types.ObjectId,
-        ref: 'album',
+        ref: 'Album',
         required: true
     }
 },

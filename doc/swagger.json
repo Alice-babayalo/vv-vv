@@ -5,11 +5,11 @@
         "description": "APIs for VV-VV",
         "version": "1.0.0"
     },
-    "host": "vv-vv.onrender.com",
+    "host": "localhost:10000",
     "basePath": "/api",
     "schemes": [
-        "https",
-        "http"
+        "http",
+        "https"
     ],
     "paths": {
         "/album/add": {
@@ -117,13 +117,13 @@
                 }
             }
         },
-        "/photo/add": {
+        "/photo/add/{albumId}": {
             "post": {
                 "summary": "Add a new photo",
                 "tags": ["Photo"],
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "albumId",
                         "in": "path",
                         "description": "ID of the album to delete",
                         "required": true,
@@ -153,6 +153,15 @@
                 "description": "The list of all photos with the same album id is retrieved from the database",
                 "tags": [
                     "Photo"
+                ],
+                "parameters":[
+                    {
+                        "name": "albumId",
+                        "in": "path",
+                        "description": "ID of the album to delete",
+                        "required": true,
+                        "type": "string"
+                    }
                 ],
                 "responses": {
                     "200": {
