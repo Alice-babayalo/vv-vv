@@ -263,7 +263,7 @@
                 "summary": "List all testimonies",
                 "description": "The list of all testimonies is retrieved from the database",
                 "tags": [
-                    "Album"
+                    "Testimony"
                 ],
                 "responses": {
                     "200": {
