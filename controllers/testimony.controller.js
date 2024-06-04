@@ -10,7 +10,7 @@ export const addTestimony = asyncWrapper (async (req, res, next) => {
         return next(new BadRequestError(errors.array()[0].msg));
     }
     const testimony = await testimonyModel.create(req.body)
-    res.status(200).json({
+    res.status(201).json({
         message: "Testimony added successfully",
         testimony
     })

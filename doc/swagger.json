@@ -3,9 +3,9 @@
     "info": {
         "title": "VV-VV",
         "description": "APIs for VV-VV",
-        "version": "1.0.0"
+        "version": "1.0.1"
     },
-    "host": "localhost:10000",
+    "host": "vv-vv.onrender.com",
     "basePath": "/api",
     "schemes": [
         "https",
@@ -14,21 +14,21 @@
     "paths": {
         "/album/add": {
             "post": {
-                "summary": "Add a new album",
+                "summary": "create a new album",
                 "tags": ["Album"],
                 "parameters": [
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "New album to be added",
+                        "description": "New album to be created",
                         "schema": {
                             "$ref": "#/definitions/Album"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Album added successfully"
+                    "201": {
+                        "description": "Album created successfully"
                     },
                     "400": {
                         "description": "Bad request. Invalid input"
@@ -125,7 +125,7 @@
                     {
                         "name": "albumId",
                         "in": "path",
-                        "description": "ID of the album to delete",
+                        "description": "ID of the album",
                         "required": true,
                         "type": "string"
                     },
@@ -158,7 +158,7 @@
                     {
                         "name": "albumId",
                         "in": "path",
-                        "description": "ID of the album to delete",
+                        "description": "ID of the album",
                         "required": true,
                         "type": "string"
                     }
@@ -249,7 +249,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Testimony added successfully"
                     },
                     "400": {
@@ -260,14 +260,30 @@
         },
         "/testimony/All": {
             "get": {
-                "summary": "Get all testimonies",
-                "tags": ["Testimony"],
+                "summary": "List all testimonies",
+                "description": "The list of all testimonies is retrieved from the database",
+                "tags": [
+                    "Album"
+                ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "successfully retrieved a list of all testimonies",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Albums not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
                     }
                 }
-            }
+            }      
         },
         "/testimony/delete/{id}": {
             "delete": {
