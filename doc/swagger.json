@@ -12,6 +12,159 @@
         "http"
     ],
     "paths": {
+        "/user/signup": {
+            "post": {
+                "summary": "User sign up registration",
+                "description": "add the new user through sign up for the first time in order for simultaneous login whenever needed",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/signup"
+                        },
+                        "required": true,
+                        "description": "user data"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/user/logIn": {
+            "post": {
+                "summary": "User login",
+                "description": "The user logs in whenever needed",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/login"
+                        },
+                        "required": true,
+                        "description": "Enter the login credentials"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/user/verify": {
+            "post": {
+                "summary": "User sign up account validation",
+                "description": "The user must provide the otp which is the same with the otp sent via email to varify his or her accoubt",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/otp"
+                        },
+                        "required": true,
+                        "description": "enter your otp provided from your email account"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/user/forgotPassword": {
+            "post": {
+                "summary": "User forgot password",
+                "description": "The user who forgot his or her password will be allowed to change the password using the link provided on his or her email account",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/forgotPassword"
+                        },
+                        "required": true,
+                        "description": "Enter your email address"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/user/resetPassword/": {
+            "post": {
+                "summary": "User reset password",
+                "description": "User enters the new password which replace the old one for future login use",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/resetPassword"
+                        },
+                        "required": true,
+                        "description": "enter the new password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/user/logout": {
+            "get": {
+                "summary": "User logout",
+                "description": "The user is now allowed to log out from his or her account on Blood Link",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully logged out from your account",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No Pets found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }      
+        },
+
         "/album/add": {
             "post": {
                 "summary": "create a new album",
@@ -341,6 +494,72 @@
         }
     },
     "definitions": {
+        "signup": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "required": true,
+                    "description": "The name of the user"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Tbe email of the user",
+                    "required": true,
+                    "default":"@gmail.com"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The password to be used while logging in"
+                }
+            }
+        },
+        "login": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "description": "Tbe email of the user",
+                    "required": true,
+                    "default":"@gmail.com"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The password to be used while logging in"
+                }
+            }
+        },
+        "otp": {
+            "type": "object",
+            "properties": {
+                "otp": {
+                    "Type": "string",
+                    "required": true,
+                    "description": "The otp which was swent to the user email"
+                }
+            }
+        },
+        "forgotPassword": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "default": "@gmail.com",
+                    "description":"the email to be sent the link to reset one's password"
+                }
+            }
+        },
+        "resetPassword": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "required": true,
+                    "description":"The new password which replace the old forgotten password"
+                }
+            }
+        },
+
         "Album": {
             "type": "object",
             "properties": {
