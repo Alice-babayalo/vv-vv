@@ -10,6 +10,10 @@ export const addTestimony = asyncWrapper (async (req, res, next) => {
         return next(new BadRequestError(errors.array()[0].msg));
     }
     const testimony = await testimonyModel.create(req.body)
+    res.status(200).json({
+        message: "Testimony added successfully",
+        testimony
+    })
 })
 
 export const deleteTestimony = asyncWrapper(async (req, res, next) => {
@@ -17,7 +21,7 @@ export const deleteTestimony = asyncWrapper(async (req, res, next) => {
     if (!testimony) {
         res.status(404).json({ message: "testimony not found" });
     }
-    res.status(200).json({ message: "testimony deleted successfully!" });
+    res.status(200).json({ message: "testimony deleted successfully!", testimony });
 });
 
 

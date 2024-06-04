@@ -5,7 +5,7 @@
         "description": "APIs for VV-VV",
         "version": "1.0.0"
     },
-    "host": "vv-vv.onrender.com",
+    "host": "localhost:10000",
     "basePath": "/api",
     "schemes": [
         "https",

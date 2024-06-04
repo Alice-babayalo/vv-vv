@@ -10,7 +10,7 @@ const photoShema = mongoose.Schema({
         type: String
     },
     album: {
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: 'Album',
         required: true
     }

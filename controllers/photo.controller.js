@@ -3,9 +3,9 @@ import cloudinary from "../middleware/cloudinary.js";
 import photoModel from "../model/photo.model.js";
 
 export const addPhotos = asyncWrapper(async (req, res, next) => {
-    const album = req.params.albumId;
+    const {albumId} = req.params;
 
-    if (!album) {
+    if (!albumId) {
         return res.status(400).json({
             success: false,
             message: "Album ID is required."
@@ -21,7 +21,7 @@ export const addPhotos = asyncWrapper(async (req, res, next) => {
 
         const photos = results.map(result => ({
             url: result.url,
-            album
+            album: albumId
         }));
 
         const createdPhotos = await photoModel.insertMany(photos);
@@ -43,7 +43,8 @@ export const deletePhoto = asyncWrapper( async (req, res, next)=>{
 
 
 export const getPhotoByAlbumId = asyncWrapper (async (req, res, next) =>{
-    const photo = await photoModel.find({album: req.params.albumId});
+    const {albumId} = req.params;
+    const photo = await photoModel.find({album: albumId});
     if (!photo){
         return res.status(404).json({
             message:"Photos not found"
