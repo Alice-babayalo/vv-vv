@@ -1,4 +1,4 @@
-import UserModel from "../model/user.model.js";
+import userModel from "../model/user.model.js";
 import asyncWrapper from "../middleware/async.js";
 import bcryptjs from 'bcryptjs';
 import { BadRequestError } from "../errors/index.js";
@@ -17,7 +17,7 @@ export const SignUp = asyncWrapper(async (req, res, next) => {
     }
 
     // Checking if the user is already in using the email
-    const foundUser = await UserModel.findOne({ email: req.body.email });
+    const foundUser = await userModel.findOne({ email: req.body.email });
     if (foundUser) {
         return next(new BadRequestError("Email already in use"));
     };
@@ -30,7 +30,7 @@ export const SignUp = asyncWrapper(async (req, res, next) => {
     const otpExpirationDate = new Date().getTime() + (60 * 1000 * 5);
 
     // Recording the user to the database
-    const newUser = new UserModel({
+    const newUser = new userModel({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
@@ -59,7 +59,7 @@ export const ValidateOpt = asyncWrapper(async (req, res, next) => {
     }
 
     // Checking if the given opt is stored in our database
-    const foundUser = await UserModel.findOne({ otp: req.body.otp });
+    const foundUser = await userModel.findOne({ otp: req.body.otp });
     if (!foundUser) {
         next(new UnauthorizedError('Authorization denied'));
     };
@@ -89,7 +89,7 @@ export const logIn = asyncWrapper(async (req, res, next) => {
     }
 
     // Find user
-    const foundUser = await UserModel.findOne({ email: req.body.email });
+    const foundUser = await userModel.findOne({ email: req.body.email });
     if (!foundUser) {
         return next(new BadRequestError("Invalid email or password!"));
     };
@@ -123,7 +123,7 @@ export const ForgotPassword = asyncWrapper(async (req, res, next) => {
     }
 
     // Find user
-    const foundUser = await UserModel.findOne({ email: req.body.email });
+    const foundUser = await userModel.findOne({ email: req.body.email });
     if (!foundUser) {
         return next(new BadRequestError("Your email is not registered!"));
     };
@@ -172,7 +172,7 @@ export const ResetPassword = asyncWrapper(async (req, res, next) => {
     }
 
     // Find user
-    const foundUser = await UserModel.findById(req.body.id);
+    const foundUser = await userModel.findById(req.body.id);
     if (!foundUser) {
         return next(new BadRequestError("User not found!"));
     };
