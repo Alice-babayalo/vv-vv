@@ -514,10 +514,15 @@
         "signup": {
             "type": "object",
             "properties": {
-                "username": {
+                "firstName": {
                     "type": "string",
                     "required": true,
-                    "description": "The name of the user"
+                    "description": "The fisrt name of the user"
+                },
+                "lastName": {
+                    "type": "string",
+                    "required": true,
+                    "description": "The last name of the user"
                 },
                 "email": {
                     "type": "string",
