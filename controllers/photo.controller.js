@@ -1,5 +1,6 @@
 import asyncWrapper from "../middleware/async.js";
 import cloudinary from "../middleware/cloudinary.js";
+import albumModel from "../model/album.model.js";
 import photoModel from "../model/photo.model.js";
 
 export const addPhotos = asyncWrapper(async (req, res, next) => {
@@ -9,6 +10,13 @@ export const addPhotos = asyncWrapper(async (req, res, next) => {
         return res.status(400).json({
             success: false,
             message: "Album ID is required."
+        });
+    }
+    const album = await albumModel.findById(albumId);
+    if(!album){
+        return res.status(404).json({
+            success: false,
+            message: "Album not found"
         });
     }
 
