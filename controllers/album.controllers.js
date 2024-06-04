@@ -21,7 +21,6 @@ export const deleteAlbum = asyncWrapper(async (req, res, next) => {
     if (!album) {
         return res.status(404).json({ success: false, message: "Album not found" });
     }
-    res.status(200).json({ success: true, message: "Album deleted successfully" });
         const deletedPhotos = await photoModel.deleteMany({ album: id });
     res.status(200).json({
         message: "Album and associated photos deleted successfully!",
@@ -44,7 +43,7 @@ export const updateAlbum = asyncWrapper(async (req, res, next) => {
     if (!album) {
         return res.status(404).json({ success: false, message: "Album not found" });
     }
-    res.status(200).json({ success: true, data: album });
+    res.status(200).json({ message: "album updated  successgfully", album: album });
 });
 
 export const getAlbumById = asyncWrapper(async (req, res, next) => {
@@ -53,5 +52,5 @@ export const getAlbumById = asyncWrapper(async (req, res, next) => {
     if (!album) {
         return res.status(404).json({ success: false, message: "Album not found" });
     }
-    res.status(200).json({ success: true, data: album });
+    res.status(200).json({ message: "album found", album: album });
 });
