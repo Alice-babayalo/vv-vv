@@ -1,4 +1,4 @@
-import userModel from "../models/user.model.js";
+import userModel from "../model/user.model.js";
 import jwt from "jsonwebtoken";
 import asyncWrapper from "../middleware/async.js";
 import bcryptjs from 'bcryptjs';
@@ -6,7 +6,7 @@ import { BadRequestError } from "../errors/index.js";
 import { validationResult } from "express-validator";
 import { sendEmail } from "../middleware/sendEmail.js";
 import { otpGenerator } from "../middleware/otp.js";
-import { UnauthorizedError } from "../errors/UnauthorizedError.js";
+import { UnauthorizedError } from "../errors/unauthorisedError.js";
 import crypto from "crypto";
 
 export const SignUp = asyncWrapper(async (req, res, next) => {
