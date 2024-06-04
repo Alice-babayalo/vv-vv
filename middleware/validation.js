@@ -12,7 +12,7 @@ export const albumValidation = [
 
 export const signUpValidations = [
 
-    body("fisrtName", "First name  is required").not().isEmpty(),
+    body("firstName", "First name  is required").not().isEmpty(),
     body("lastName", "Last name  is required").not().isEmpty(),
     body("email", "Email is required").not().isEmpty(),
     body("email", "Invalid email").isEmail(),

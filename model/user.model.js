@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const userchema = new mongoose.Schema({
-  fistName: {
+  firstName: {
     type: String,
     required: true,
   },
@@ -45,6 +45,7 @@ const userchema = new mongoose.Schema({
     transform: (doc, ret) => {
       ret.id = ret._id;
       delete ret._id;
+      delete ret.otp;
       delete ret.__v;
       delete ret.password;
       return ret;

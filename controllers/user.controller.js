@@ -7,7 +7,10 @@ import { sendEmail } from "../middleware/sendEmail.js";
 import { otpGenerator } from "../middleware/otp.js";
 import { UnauthorizedError } from "../errors/unauthorisedError.js";
 import jwt from "jsonwebtoken";
-import Token from '../model/token.model.js';
+import TokenModel from '../model/token.model.js';
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 export const SignUp = asyncWrapper(async (req, res, next) => {
     // Validation
@@ -36,6 +39,7 @@ export const SignUp = asyncWrapper(async (req, res, next) => {
         email: req.body.email,
         password: hashedPassword,
         otpExpires: otpExpirationDate,
+        otp: otp
     });
 
     const savedUser = await newUser.save();
@@ -132,7 +136,7 @@ export const ForgotPassword = asyncWrapper(async (req, res, next) => {
     const token = jwt.sign({ id: foundUser.id }, process.env.JWT_SECRET, { expiresIn: "15m" });
 
     // Recording the token to the database
-    await Token.create({
+    await TokenModel.create({
         token: token,
         user: foundUser._id,
         expirationDate: new Date().getTime() + (60 * 1000 * 5),
@@ -161,7 +165,7 @@ export const ResetPassword = asyncWrapper(async (req, res, next) => {
         return next(new BadRequestError("Invalid token!"));
     }
 
-    const recordedToken = await Token.findOne({ token: req.body.token });
+    const recordedToken = await TokenModel.findOne({ token: req.body.token });
     
     if (decoded.id!= req.body.id || recordedToken.user!= req.body.id) {
         return next(new BadRequestError("Invalid token!"));
@@ -178,7 +182,7 @@ export const ResetPassword = asyncWrapper(async (req, res, next) => {
     };
 
     // Deleting the user token
-    await Token.deleteOne({ token: req.body.token });
+    await TokenModel.deleteOne({ token: req.body.token });
 
     // Harshing the user password
     const hashedPassword = await bcryptjs.hashSync(req.body.password, 10);

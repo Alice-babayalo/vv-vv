@@ -1,4 +1,8 @@
 import nodemailer from "nodemailer"
+import dotenv from 'dotenv'
+
+dotenv.config();
+
 export const sendEmail=(receipt,subject,body)=>{
  const transporter=nodemailer.createTransport({
     service:process.env.EMAIL_SERVICE,
