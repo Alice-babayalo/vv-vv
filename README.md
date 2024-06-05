@@ -80,7 +80,7 @@ Blood Link aims to solve this problem by:
 # Deployed Project links
 
 - **API Documentation** - [swagger documentation](https://blood-link-be.onrender.com/api-documentation/)
-- **Blood link with Frontend** - [[Blood Link](https://blood-link-fe.onrender.com/)
+- **Blood link with Frontend** - [Blood Link](https://blood-link-fe.onrender.com/)
 
 ## Installation
 
