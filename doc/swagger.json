@@ -492,7 +492,7 @@
             }      
         }
     },
-    "Tags":[
+    "tags":[
         {
             "name":"Album",
             "description":"APIs concerned with the albums"
