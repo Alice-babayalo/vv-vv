@@ -4,7 +4,6 @@
 # Blood Link Project
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js CI](https://github.com/Alice-babayalo/Blood-Link-BE/actions/workflows/node.js.yml/badge.svg)](https://github.com/Alice-babayalo/Blood-Link-BE/actions/workflows/node.js.yml)
 
 Blood Link is a life-saving platform designed to streamline the process of blood donation and requests, making it easier for hospitals to manage blood stocks and for donors to contribute to the cause.
 
@@ -80,8 +79,8 @@ Blood Link aims to solve this problem by:
 
 # Deployed Project links
 
-- **API Documentation** -
-- **Blood link with Frontend** - 
+- **API Documentation** - [swagger documentation](https://blood-link-be.onrender.com/api-documentation/)
+- **Blood link with Frontend** - [Blood Link](https://blood-link-fe.onrender.com/)
 
 ## Installation
 
