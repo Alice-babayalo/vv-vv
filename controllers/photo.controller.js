@@ -20,25 +20,23 @@ export const addPhotos = asyncWrapper(async (req, res, next) => {
         });
     }
 
-   const uploadPromises = req.files.map(file => cloudinary.uploader.upload(file.path));
+    const images = req.files;
+    console.log(images);
 
-    try {
-        const results = await Promise.all(uploadPromises);
+    const results = [];
+    for (const image of images){
+        const imageResult = await cloudinary.uploader.upload(image.path, {
+            resource_type: "auto"
+        });
 
-        console.log("Cloudinary Upload Results:", results);
-
+        results.push(imageResult)
+    }
         const photos = results.map(result => ({
-            url: result.url,
+            url: result.secure_url,
             album: albumId
         }));
 
-        const createdPhotos = await photoModel.insertMany(photos);
-
-        res.status(200).json({ message: "Photos added successfully!", photos: createdPhotos });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error uploading photos" });
-    }
+        res.status(200).json({ message: "Photos added successfully!", photos: photos });
 });
 
 export const deletePhoto = asyncWrapper( async (req, res, next)=>{
@@ -52,12 +50,13 @@ export const deletePhoto = asyncWrapper( async (req, res, next)=>{
 
 export const getPhotoByAlbumId = asyncWrapper (async (req, res, next) =>{
     const {albumId} = req.params;
-    const photo = await photoModel.find({album: albumId});
-    if (!photo){
+    const findAlbum = await albumModel.findById(albumId)
+    if (!findAlbum){
         return res.status(404).json({
             message:"Photos not found"
         })
     }
+    const photo = await photoModel.find({album: albumId});
     res.status(200).json({
         message: "Photos retrieved successfully",
         numberOfPhotos: photo.length,

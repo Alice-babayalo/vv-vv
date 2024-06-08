@@ -130,7 +130,7 @@
                         "type": "string"
                     },
                     {
-                        "name": "files",
+                        "name": "images",
                         "in": "formData",
                         "description": "Photo file",
                         "required": true,
