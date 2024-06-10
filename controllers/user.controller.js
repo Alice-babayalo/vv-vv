@@ -112,6 +112,18 @@ export const logIn = asyncWrapper(async (req, res, next) => {
     // Generate token
     const token = jwt.sign({ id: foundUser.id, email: foundUser.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
+    const expirationDate = new Date();
+    expirationDate.setHours(expirationDate.getHours() + 1);
+
+    const newToken = new TokenModel({
+        token: token,
+        user: foundUser._id,
+        expirationDate: expirationDate
+    });
+    
+    await newToken.save();
+    await TokenModel.deleteMany({ expirationDate: { $lt: new Date() } });
+
     res.status(200).json({
         message: "User logged in!",
         token: token,

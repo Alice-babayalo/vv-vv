@@ -5,9 +5,9 @@ import authMiddleware from '../middleware/authorisation.js';
 
 const photoRoute = express.Router();
 
-photoRoute.use(authMiddleware)
-photoRoute.post('/add/:albumId', upload.array('images'), addPhotos);
-photoRoute.delete('/delete/:id', deletePhoto)
+
+photoRoute.post('/add/:albumId', authMiddleware, upload.array('images'), addPhotos);
+photoRoute.delete('/delete/:id', authMiddleware, deletePhoto)
 photoRoute.get('/getphoto/:albumId', getPhotoByAlbumId)
 photoRoute.get('/all', allPhotos)
 
