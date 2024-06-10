@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const userchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    default: uuidv4
+},
   firstName: {
     type: String,
     required: true,
