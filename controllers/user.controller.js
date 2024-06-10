@@ -7,10 +7,10 @@ import { sendEmail } from "../middleware/sendEmail.js";
 import { otpGenerator } from "../middleware/otp.js";
 import { UnauthorizedError } from "../errors/unauthorisedError.js";
 import jwt from "jsonwebtoken";
-import TokenModel from '../model/token.model.js';
+import TokenModel from '../model/Auth.Token.model.js';
 import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config(); 
 
 export const SignUp = asyncWrapper(async (req, res, next) => {
     // Validation

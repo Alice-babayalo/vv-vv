@@ -27,6 +27,12 @@ const userchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  role:{
+    type: String,
+    required: true,
+    default: 'user',
+    enum: ['admin', 'user']
+  },
   resetToken: {
     type: String,
     required: false

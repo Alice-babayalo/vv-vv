@@ -11,6 +11,13 @@
         "https",
         "http"
     ],
+    "securityDefinitions":{
+        "apiKeyAuth":{
+            "type":"apiKey",
+            "in":"header",
+            "name":"Authorisation"
+        }
+    },
     "paths": {
         "/album/add": {
             "post": {
