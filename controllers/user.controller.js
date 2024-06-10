@@ -110,7 +110,7 @@ export const logIn = asyncWrapper(async (req, res, next) => {
     }
 
     // Generate token
-    const token = jwt.sign({ id: foundUser.id, email: foundUser.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ id: foundUser.id, email: foundUser.email, role: foundUser.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     const expirationDate = new Date();
     expirationDate.setHours(expirationDate.getHours() + 1);
@@ -118,7 +118,8 @@ export const logIn = asyncWrapper(async (req, res, next) => {
     const newToken = new TokenModel({
         token: token,
         user: foundUser._id,
-        expirationDate: expirationDate
+        expirationDate: expirationDate,
+        role: foundUser.role
     });
     
     await newToken.save();
