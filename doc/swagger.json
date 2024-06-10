@@ -15,7 +15,7 @@
         "apiKeyAuth":{
             "type":"apiKey",
             "in":"header",
-            "name":"Authorisation"
+            "name":"Authorization"
         }
     },
     "paths": {
@@ -90,6 +90,11 @@
                             "$ref": "#/definitions/Album"
                         }
                     }
+                ],
+                "security": [
+                  {
+                    "Bearer": []
+                  }
                 ],
                 "responses": {
                     "200": {

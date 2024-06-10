@@ -7,10 +7,10 @@ import { sendEmail } from "../middleware/sendEmail.js";
 import { otpGenerator } from "../middleware/otp.js";
 import { UnauthorizedError } from "../errors/unauthorisedError.js";
 import jwt from "jsonwebtoken";
-import TokenModel from '../model/token.model.js';
+import TokenModel from '../model/Auth.Token.model.js';
 import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config(); 
 
 export const SignUp = asyncWrapper(async (req, res, next) => {
     // Validation
@@ -111,6 +111,18 @@ export const logIn = asyncWrapper(async (req, res, next) => {
 
     // Generate token
     const token = jwt.sign({ id: foundUser.id, email: foundUser.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+    const expirationDate = new Date();
+    expirationDate.setHours(expirationDate.getHours() + 1);
+
+    const newToken = new TokenModel({
+        token: token,
+        user: foundUser._id,
+        expirationDate: expirationDate
+    });
+    
+    await newToken.save();
+    await TokenModel.deleteMany({ expirationDate: { $lt: new Date() } });
 
     res.status(200).json({
         message: "User logged in!",

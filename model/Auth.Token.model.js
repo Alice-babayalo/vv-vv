@@ -6,8 +6,8 @@ const TokenSchema = new Schema({
         required: true,
     },
     user: {
-        type: Schema.Types.ObjectId,
-        ref: "user",
+        type: String,
+        ref: "User",
         required: true,
     },
     expirationDate: {

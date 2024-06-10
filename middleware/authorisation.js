@@ -1,25 +1,28 @@
-import jwt from "jsonwebtoken";
-import config from "../configs/index.js";
-import userModel from "../model/user.model.js";
+import jwt from 'jsonwebtoken';
+import TokenModel from '../model/Auth.Token.model.js';
+import { BadRequestError } from '../errors/index.js';
 
 const authMiddleware = async (req, res, next) => {
-  try {
-    // Get the token from the request headers
-    const token = req.headers.authorization.split(" ")[1];
-    if (!token) {
-      return res.status(401).json({ message: "Unauthorized because of invalid token" });
+    try {
+        const token = req.header('Authorization')
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        const tokenDocument = await TokenModel.findOne({ token: token });
+        if (!tokenDocument) {
+            throw new Error('Invalid token');
+        }
+
+        if (decoded.role !== 'admin') {
+            throw new BadRequestError('Only admins can perform this action');
+        }
+
+        req.user = decoded;
+
+        next();
+    } catch (error) {
+        return next(error);
     }
-
-    const decodedToken = jwt.verify(token, config.JWT_SECRET_KEY);
-    const user = await userModel.findById(decodedToken.userId);
-    req.user = user;
-
-    // Continue to the next middleware or route handler
-    next();
-  } catch (err) {
-    console.error(err);
-    return res.status(401).json({ message: "Unauthorized"});
-  }
 };
 
 export default authMiddleware;
