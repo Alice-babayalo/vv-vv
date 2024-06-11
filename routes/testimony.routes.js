@@ -5,10 +5,9 @@ import authMiddleware from '../middleware/authorisation.js';
 
 const testimonyRoute = express.Router();
 
-testimonyRoute.use(authMiddleware)
 testimonyRoute.post('/add', testimonialValidation, addTestimony)
 testimonyRoute.get('/All', allTestimonies)
 testimonyRoute.delete('/delete/:id', authMiddleware, deleteTestimony)
-testimonyRoute.patch('/update/:id', authMiddleware, testimonialValidation, updateTestimony)
+testimonyRoute.patch('/update/:id', testimonialValidation, updateTestimony)
 
 export default testimonyRoute

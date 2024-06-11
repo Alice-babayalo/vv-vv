@@ -7,7 +7,7 @@ const authMiddleware = async (req, res, next) => {
         const token = req.header('Authorization')
 
         if (!token) {
-            throw new BadRequestError('Authorization token is missing');
+            throw new BadRequestError('You are unauthorized to perform this operation');
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -18,7 +18,7 @@ const authMiddleware = async (req, res, next) => {
         }
 
         if (decoded.role !== 'admin') {
-            throw new BadRequestError('Unauthorized access - Admin role required');
+            throw new BadRequestError('Only admin users can perform this operation');
         }
 
         req.user = decoded;
