@@ -118,8 +118,8 @@ export const logIn = asyncWrapper(async (req, res, next) => {
     const newToken = new TokenModel({
         token: token,
         user: foundUser._id,
+        role: foundUser.role,
         expirationDate: expirationDate,
-        role: foundUser.role
     });
     
     await newToken.save();
