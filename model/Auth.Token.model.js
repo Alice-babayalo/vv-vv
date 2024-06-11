@@ -13,6 +13,10 @@ const TokenSchema = new Schema({
     expirationDate: {
         type: Date,
         required: true,
+    },
+    role:{
+        type: String,
+        required: true
     }
 });
 

@@ -1,6 +1,6 @@
 import express from 'express'
 import { addAlbum, allAlbums, deleteAlbum, updateAlbum } from '../controllers/album.controllers.js'
-import { albumValidation } from '../middleware/validation.js';
+import { albumValidation } from '../utils/validation.js';
 import authMiddleware from '../middleware/authorisation.js';
 
 const albumRoute = express.Router();

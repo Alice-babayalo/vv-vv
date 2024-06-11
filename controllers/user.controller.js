@@ -3,8 +3,8 @@ import asyncWrapper from "../middleware/async.js";
 import bcryptjs from 'bcryptjs';
 import { BadRequestError } from "../errors/index.js";
 import { validationResult } from "express-validator";
-import { sendEmail } from "../middleware/sendEmail.js";
-import { otpGenerator } from "../middleware/otp.js";
+import { sendEmail } from "../utils/sendEmail.js";
+import { otpGenerator } from "../utils/otp.js";
 import { UnauthorizedError } from "../errors/unauthorisedError.js";
 import jwt from "jsonwebtoken";
 import TokenModel from '../model/Auth.Token.model.js';
@@ -110,7 +110,7 @@ export const logIn = asyncWrapper(async (req, res, next) => {
     }
 
     // Generate token
-    const token = jwt.sign({ id: foundUser.id, email: foundUser.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ id: foundUser.id, email: foundUser.email, role: foundUser.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     const expirationDate = new Date();
     expirationDate.setHours(expirationDate.getHours() + 1);
@@ -118,7 +118,8 @@ export const logIn = asyncWrapper(async (req, res, next) => {
     const newToken = new TokenModel({
         token: token,
         user: foundUser._id,
-        expirationDate: expirationDate
+        role: foundUser.role,
+        expirationDate: expirationDate,
     });
     
     await newToken.save();

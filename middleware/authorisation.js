@@ -6,23 +6,26 @@ const authMiddleware = async (req, res, next) => {
     try {
         const token = req.header('Authorization')
 
+        if (!token) {
+            throw new BadRequestError('You are unauthorized to perform this operation');
+        }
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         const tokenDocument = await TokenModel.findOne({ token: token });
         if (!tokenDocument) {
-            throw new Error('Invalid token');
+            throw new BadRequestError('Invalid token');
         }
 
         if (decoded.role !== 'admin') {
-            throw new BadRequestError('Only admins can perform this action');
+            throw new BadRequestError('Only admin users can perform this operation');
         }
 
         req.user = decoded;
-
-        next();
+        // console.log(decoded);
+        next()
     } catch (error) {
         return next(error);
     }
 };
-
 export default authMiddleware;
