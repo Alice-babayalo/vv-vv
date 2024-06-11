@@ -1,6 +1,6 @@
 import express from 'express';
 import { addTestimony, allTestimonies, deleteTestimony, updateTestimony } from '../controllers/testimony.controller.js';
-import { testimonialValidation } from '../middleware/validation.js';
+import { testimonialValidation } from '../utils/validation.js';
 import authMiddleware from '../middleware/authorisation.js';
 
 const testimonyRoute = express.Router();

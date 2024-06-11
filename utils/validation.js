@@ -37,3 +37,9 @@ export const resetPasswordValidation = [
     body("password", "Password is required").not().isEmpty(),
     body("password", "Password should contain atleast 8 characters, uppercase and lower case letters, numbers, and symbols").isStrongPassword()
 ];
+
+export const storyValidation = [
+    body("title", "The story must have a title").not().isEmpty(),
+    body("content", "The story must have a content").not().isEmpty(),
+    body("story_photo_url", "The story must have a photo just for profile").not().isEmpty(),
+]
