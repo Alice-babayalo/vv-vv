@@ -40,6 +40,5 @@ export const resetPasswordValidation = [
 
 export const storyValidation = [
     body("title", "The story must have a title").not().isEmpty(),
-    body("content", "The story must have a content").not().isEmpty(),
-    body("story_photo_url", "The story must have a photo just for profile").not().isEmpty(),
+    body("content", "The story must have a content").not().isEmpty()
 ]

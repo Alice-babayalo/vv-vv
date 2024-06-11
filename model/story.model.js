@@ -11,10 +11,6 @@ const storySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    subTitle: {
-        type: String,
-        required: false
-    },
     content:{
         type: String,
         required: true

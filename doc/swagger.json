@@ -246,6 +246,156 @@
                 }
             }
         },
+        "/story/add": {
+            "post": {
+                "summary": "Add a new story",
+                "tags": ["Story"],
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "Photo file",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "New album to be created",
+                        "schema": {
+                            "$ref": "#/definitions/Story"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Photo added successfully"
+                    },
+                    "400": {
+                        "description": "Bad request. Invalid input"
+                    }
+                }
+            }
+        },
+        "/story/update": {
+            "patch": {
+                "summary": "Update a story",
+                "tags": ["Story"],
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "Photo file",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Information about the story to be updated",
+                        "schema": {
+                            "$ref": "#/definitions/Story"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Photo added successfully"
+                    },
+                    "400": {
+                        "description": "Bad request. Invalid input"
+                    }
+                }
+            }
+        },
+        "/story/getStory/{id}":{
+            "get": {
+                "summary": "Get a specific story",
+                "description": "Retrieves all information about a hospital of a specific id",
+                "tags": [
+                    "Story"
+                ],
+                "parameters":[
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the story",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully retrieved a list of all photos with the same album id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Photos not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }      
+        },
+        "/story/all":{
+            "get": {
+                "summary": "List all stories",
+                "description": "The list of all stories is retrieved from the database",
+                "tags": [
+                    "Story"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully retrieved a list of all stories",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "stories not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }      
+
+        },
+        "/story/delete/{id}": {
+            "delete": {
+                "summary": "Delete a story",
+                "tags": ["Story"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the story to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Story deleted successfully"
+                    },
+                    "404": {
+                        "description": "Story not found"
+                    }
+                }
+            }
+        },
+
         "/testimony/add": {
             "post": {
                 "summary": "Add a new testimony",
@@ -514,6 +664,10 @@
             "description":"APIs concerned with the photos"
         },
         {
+            "name":"Story",
+            "description":"APIs concerned with the stories"
+        },
+        {
             "name":"Testimony",
             "description":"APIs concerned with the testimonies"
         },
@@ -603,6 +757,19 @@
                 },
                 "description": {
                     "type": "string"
+                }
+            }
+        },
+        "Story":{
+            "type":"object",
+            "properties": {
+                "title":{
+                    "type":"string",
+                    "requested":true
+                },
+                "content":{
+                    "type":"string",
+                    "required":true
                 }
             }
         },

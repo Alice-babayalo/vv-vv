@@ -19,7 +19,6 @@ export const addStory = asyncWrapper( async( req, res, next ) => {
 
     const story = new storyModel({
         title: req.body.title,
-        subTitle: req.body.subtitle,
         content: req.body.content,
         story_photo_url: result.secure_url
     })
