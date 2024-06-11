@@ -1,4 +1,4 @@
-import cloudinary from 'cloudinary';
+import cloudinary from '../middleware/cloudinary.js';
 import storyModel from "../model/story.model.js";
 import asyncWrapper from "../middleware/async.js";
 import { BadRequestError } from "../errors/badRequest.js";
