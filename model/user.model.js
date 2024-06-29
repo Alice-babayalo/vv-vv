@@ -30,7 +30,7 @@ const userchema = new mongoose.Schema({
   },
   verified: {
     type: Boolean,
-    default: false
+    default: true
   },
   role:{
     type: String,
