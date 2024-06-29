@@ -1,790 +1,678 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "VV-VV",
-        "description": "APIs for VV-VV",
-        "version": "1.0.1"
-    },
-    "host": "vv-vv.onrender.com",
-    "basePath": "/api",
-    "schemes": [
-        "https",
-        "http"
-    ],
-    "securityDefinitions":{
-        "apiKeyAuth":{
-            "type":"apiKey",
-            "in":"header",
-            "name":"Authorization"
-        }
-    },
-    "paths": {
-        "/album/add": {
-            "post": {
-                "summary": "create a new album",
-                "tags": ["Album"],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "New album to be created",
-                        "schema": {
-                            "$ref": "#/definitions/Album"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Album created successfully"
-                    },
-                    "400": {
-                        "description": "Bad request. Invalid input"
-                    }
-                }
-            }
-        },
-        "/album/all": {
-            "get": {
-                "summary": "List all albums",
-                "description": "The list of all albums is retrieved from the database",
-                "tags": [
-                    "Album"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfully retrieved a list of all albums",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Albums not found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }      
-        },
-        "/album/update/{id}": {
-            "patch": {
-                "summary": "Update an existing album",
-                "tags": ["Album"],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the album to update",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Album to be updated ",
-                        "schema": {
-                            "$ref": "#/definitions/Album"
-                        }
-                    }
-                ],
-                "security": [
-                  {
-                    "Bearer": []
-                  }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Album updated successfully"
-                    },
-                    "404": {
-                        "description": "Album not found"
-                    }
-                }
-            }
-        },
-        "/album/delete/{id}": {
-            "delete": {
-                "summary": "Delete an album",
-                "tags": ["Album"],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the album to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Album deleted successfully"
-                    },
-                    "404": {
-                        "description": "Album not found"
-                    }
-                }
-            }
-        },
-        "/photo/add/{albumId}": {
-            "post": {
-                "summary": "Add a new photo",
-                "tags": ["Photo"],
-                "parameters": [
-                    {
-                        "name": "albumId",
-                        "in": "path",
-                        "description": "ID of the album",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "images",
-                        "in": "formData",
-                        "description": "Photo file",
-                        "required": true,
-                        "type": "file"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Photo added successfully"
-                    },
-                    "400": {
-                        "description": "Bad request. Invalid input"
-                    }
-                }
-            }
-        },
-        "/photo/getPhoto/{albumId}":{
-            "get": {
-                "summary": "List all Photos with the same id of the album",
-                "description": "The list of all photos with the same album id is retrieved from the database",
-                "tags": [
-                    "Photo"
-                ],
-                "parameters":[
-                    {
-                        "name": "albumId",
-                        "in": "path",
-                        "description": "ID of the album",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfully retrieved a list of all photos with the same album id",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Photos not found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }      
-        },
-        "/photo/all":{
-            "get": {
-                "summary": "List all photos",
-                "description": "The list of all photos is retrieved from the database",
-                "tags": [
-                    "Photo"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfully retrieved a list of all photos",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "photos not found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }      
-
-        },
-        "/photo/delete/{id}": {
-            "delete": {
-                "summary": "Delete a photo",
-                "tags": ["Photo"],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the photo to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Photo deleted successfully"
-                    },
-                    "404": {
-                        "description": "Photo not found"
-                    }
-                }
-            }
-        },
-        "/story/add": {
-            "post": {
-                "summary": "Add a new story",
-                "tags": ["Story"],
-                "parameters": [
-                    {
-                        "name": "file",
-                        "in": "formData",
-                        "description": "Photo file",
-                        "required": true,
-                        "type": "file"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "New album to be created",
-                        "schema": {
-                            "$ref": "#/definitions/Story"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Photo added successfully"
-                    },
-                    "400": {
-                        "description": "Bad request. Invalid input"
-                    }
-                }
-            }
-        },
-        "/story/update": {
-            "patch": {
-                "summary": "Update a story",
-                "tags": ["Story"],
-                "parameters": [
-                    {
-                        "name": "file",
-                        "in": "formData",
-                        "description": "Photo file",
-                        "required": true,
-                        "type": "file"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Information about the story to be updated",
-                        "schema": {
-                            "$ref": "#/definitions/Story"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Photo added successfully"
-                    },
-                    "400": {
-                        "description": "Bad request. Invalid input"
-                    }
-                }
-            }
-        },
-        "/story/getStory/{id}":{
-            "get": {
-                "summary": "Get a specific story",
-                "description": "Retrieves all information about a hospital of a specific id",
-                "tags": [
-                    "Story"
-                ],
-                "parameters":[
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the story",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfully retrieved a list of all photos with the same album id",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Photos not found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }      
-        },
-        "/story/all":{
-            "get": {
-                "summary": "List all stories",
-                "description": "The list of all stories is retrieved from the database",
-                "tags": [
-                    "Story"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfully retrieved a list of all stories",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "stories not found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }      
-
-        },
-        "/story/delete/{id}": {
-            "delete": {
-                "summary": "Delete a story",
-                "tags": ["Story"],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the story to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Story deleted successfully"
-                    },
-                    "404": {
-                        "description": "Story not found"
-                    }
-                }
-            }
-        },
-
-        "/testimony/add": {
-            "post": {
-                "summary": "Add a new testimony",
-                "tags": ["Testimony"],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Testimony object",
-                        "schema": {
-                            "$ref": "#/definitions/Testimony"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Testimony added successfully"
-                    },
-                    "400": {
-                        "description": "Bad request. Invalid input"
-                    }
-                }
-            }
-        },
-        "/testimony/All": {
-            "get": {
-                "summary": "List all testimonies",
-                "description": "The list of all testimonies is retrieved from the database",
-                "tags": [
-                    "Testimony"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfully retrieved a list of all testimonies",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Albums not found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }      
-        },
-        "/testimony/delete/{id}": {
-            "delete": {
-                "summary": "Delete a testimony",
-                "tags": ["Testimony"],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the testimony to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Testimony deleted successfully"
-                    },
-                    "404": {
-                        "description": "Testimony not found"
-                    }
-                }
-            }
-        },
-        "/testimony/update/{id}": {
-            "patch": {
-                "summary": "Update an existing testimony",
-                "tags": ["Testimony"],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the testimony to update",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Testimony object",
-                        "schema": {
-                            "$ref": "#/definitions/Testimony"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Testimony updated successfully"
-                    },
-                    "404": {
-                        "description": "Testimony not found"
-                    }
-                }
-            }
-        },
-        "/user/signup": {
-            "post": {
-                "summary": "User sign up registration",
-                "description": "add the new user through sign up for the first time in order for simultaneous login whenever needed",
-                "tags": [
-                    "User"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/signup"
-                        },
-                        "required": true,
-                        "description": "user data"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
-        "/user/logIn": {
-            "post": {
-                "summary": "User login",
-                "description": "The user logs in whenever needed",
-                "tags": [
-                    "User"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/login"
-                        },
-                        "required": true,
-                        "description": "Enter the login credentials"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
-        "/user/verify": {
-            "post": {
-                "summary": "User sign up account validation",
-                "description": "The user must provide the otp which is the same with the otp sent via email to varify his or her accoubt",
-                "tags": [
-                    "User"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/otp"
-                        },
-                        "required": true,
-                        "description": "enter your otp provided from your email account"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
-        "/user/forgotPassword": {
-            "post": {
-                "summary": "User forgot password",
-                "description": "The user who forgot his or her password will be allowed to change the password using the link provided on his or her email account",
-                "tags": [
-                    "User"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/forgotPassword"
-                        },
-                        "required": true,
-                        "description": "Enter your email address"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
-        "/user/resetPassword/": {
-            "post": {
-                "summary": "User reset password",
-                "description": "User enters the new password which replace the old one for future login use",
-                "tags": [
-                    "User"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/resetPassword"
-                        },
-                        "required": true,
-                        "description": "enter the new password"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
-        "/user/logout": {
-            "get": {
-                "summary": "User logout",
-                "description": "The user is now allowed to log out from his or her account on Blood Link",
-                "tags": [
-                    "User"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfully logged out from your account",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Notfound"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }      
-        }
-    },
-    "tags":[
-        {
-            "name":"Album",
-            "description":"APIs concerned with the albums"
-        },
-        {
-            "name":"Photo",
-            "description":"APIs concerned with the photos"
-        },
-        {
-            "name":"Story",
-            "description":"APIs concerned with the stories"
-        },
-        {
-            "name":"Testimony",
-            "description":"APIs concerned with the testimonies"
-        },
-        {
-            "name":"User",
-            "description":"APIs concerned with the user authentication and authorisation"
-        }
-    ],
-    "definitions": {
-        "signup": {
-            "type": "object",
-            "properties": {
-                "firstName": {
-                    "type": "string",
-                    "required": true,
-                    "description": "The fisrt name of the user"
-                },
-                "lastName": {
-                    "type": "string",
-                    "required": true,
-                    "description": "The last name of the user"
-                },
-                "email": {
-                    "type": "string",
-                    "description": "Tbe email of the user",
-                    "required": true,
-                    "default":"@gmail.com"
-                },
-                "password": {
-                    "type": "string",
-                    "description": "The password to be used while logging in"
-                }
-            }
-        },
-        "login": {
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string",
-                    "description": "Tbe email of the user",
-                    "required": true,
-                    "default":"@gmail.com"
-                },
-                "password": {
-                    "type": "string",
-                    "description": "The password to be used while logging in"
-                }
-            }
-        },
-        "otp": {
-            "type": "object",
-            "properties": {
-                "otp": {
-                    "Type": "string",
-                    "required": true,
-                    "description": "The otp which was swent to the user email"
-                }
-            }
-        },
-        "forgotPassword": {
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string",
-                    "default": "@gmail.com",
-                    "description":"the email to be sent the link to reset one's password"
-                }
-            }
-        },
-        "resetPassword": {
-            "type": "object",
-            "properties": {
-                "password": {
-                    "type": "string",
-                    "required": true,
-                    "description":"The new password which replace the old forgotten password"
-                }
-            }
-        },
-
-        "Album": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "required":true
-                },
-                "description": {
-                    "type": "string"
-                }
-            }
-        },
-        "Story":{
-            "type":"object",
-            "properties": {
-                "title":{
-                    "type":"string",
-                    "requested":true
-                },
-                "content":{
-                    "type":"string",
-                    "required":true
-                }
-            }
-        },
-        "Testimony": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "required":true
-                },
-                "testimony": {
-                    "type": "string",
-                    "required":true
-                }
-            }
-        }
-    }
+	"swagger": "2.0",
+	"info": {
+		"title": "VV-VV",
+		"description": "APIs for VV-VV",
+		"version": "1.0.1"
+	},
+	"production": "vv-vv.onrender.com",
+	"deevelopment": "http://localhost:10000/",
+	"basePath": "/api",
+	"schemes": ["https", "http"],
+	"securityDefinitions": {
+		"apiKeyAuth": {
+			"type": "apiKey",
+			"in": "header",
+			"name": "Authorization"
+		}
+	},
+	"security": [
+		{
+			"apiKeyAuth": []
+		}
+	],
+	"paths": {
+		"/album/add": {
+			"post": {
+				"summary": "create a new album",
+				"tags": ["Album"],
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "New album to be created",
+						"schema": {
+							"$ref": "#/definitions/Album"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Album created successfully"
+					},
+					"400": {
+						"description": "Bad request. Invalid input"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/album/all": {
+			"get": {
+				"summary": "List all albums",
+				"description": "The list of all albums is retrieved from the database",
+				"tags": ["Album"],
+				"responses": {
+					"200": {
+						"description": "successfully retrieved a list of all albums",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Albums not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/album/update/{id}": {
+			"patch": {
+				"summary": "Update an existing album",
+				"tags": ["Album"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the album to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Album to be updated ",
+						"schema": {
+							"$ref": "#/definitions/Album"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Album updated successfully"
+					},
+					"404": {
+						"description": "Album not found"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/album/delete/{id": {
+			"delete": {
+				"summary": "Delete an album",
+				"tags": ["Album"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the album to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Album deleted successfully"
+					},
+					"404": {
+						"description": "Album not found"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/photo/add/{albumId}": {
+			"post": {
+				"summary": "Add a new photo",
+				"tags": ["Photo"],
+				"parameters": [
+					{
+						"name": "albumId",
+						"in": "path",
+						"description": "ID of the album",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "images",
+						"in": "formData",
+						"description": "Photo file",
+						"required": true,
+						"type": "file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Photo added successfully"
+					},
+					"400": {
+						"description": "Bad request. Invalid input"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/photo/getPhoto/{albumId}": {
+			"get": {
+				"summary": "List all Photos with the same id of the album",
+				"description": "The list of all photos with the same album id is retrieved from the database",
+				"tags": ["Photo"],
+				"parameters": [
+					{
+						"name": "albumId",
+						"in": "path",
+						"description": "ID of the album",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successfully retrieved a list of all photos with the same album id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Photos not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/photo/all": {
+			"get": {
+				"summary": "List all photos",
+				"description": "The list of all photos is retrieved from the database",
+				"tags": ["Photo"],
+				"responses": {
+					"200": {
+						"description": "successfully retrieved a list of all photos",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "photos not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/photo/delete/{id}": {
+			"delete": {
+				"summary": "Delete a photo",
+				"tags": ["Photo"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the photo to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Photo deleted successfully"
+					},
+					"404": {
+						"description": "Photo not found"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/story/add": {
+			"post": {
+				"summary": "Add a new story",
+				"tags": ["Story"],
+				"parameters": [
+					{
+						"name": "file",
+						"in": "formData",
+						"description": "Photo file",
+						"required": true,
+						"type": "file"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "New album to be created",
+						"schema": {
+							"$ref": "#/definitions/Story"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Photo added successfully"
+					},
+					"400": {
+						"description": "Bad request. Invalid input"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/story/update": {
+			"patch": {
+				"summary": "Update a story",
+				"tags": ["Story"],
+				"parameters": [
+					{
+						"name": "file",
+						"in": "formData",
+						"description": "Photo file",
+						"required": true,
+						"type": "file"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Information about the story to be updated",
+						"schema": {
+							"$ref": "#/definitions/Story"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Photo added successfully"
+					},
+					"400": {
+						"description": "Bad request. Invalid input"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/story/getStory/{id}": {
+			"get": {
+				"summary": "Get a specific story",
+				"description": "Retrieves all information about a hospital of a specific id",
+				"tags": ["Story"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the story",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successfully retrieved a specific story",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "story not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/story/delete/{id}": {
+			"delete": {
+				"summary": "Delete a story",
+				"tags": ["Story"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the story to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Story deleted successfully"
+					},
+					"404": {
+						"description": "Story not found"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/testimony/add/{albumId}": {
+			"post": {
+				"summary": "Add a testimony",
+				"tags": ["Testimony"],
+				"parameters": [
+					{
+						"name": "albumId",
+						"in": "path",
+						"description": "ID of the album",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "New album to be created",
+						"schema": {
+							"$ref": "#/definitions/Testimony"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Testimony added successfully"
+					},
+					"400": {
+						"description": "Bad request. Invalid input"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/testimony/update/{id}": {
+			"patch": {
+				"summary": "Update a testimony",
+				"tags": ["Testimony"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the album to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Album to be updated",
+						"schema": {
+							"$ref": "#/definitions/Testimony"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Testimony updated successfully"
+					},
+					"404": {
+						"description": "Album not found"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/testimony/all/{albumId}": {
+			"get": {
+				"summary": "List all testimonies with the same id of the album",
+				"description": "The list of all testimonies with the same album id is retrieved from the database",
+				"tags": ["Testimony"],
+				"parameters": [
+					{
+						"name": "albumId",
+						"in": "path",
+						"description": "ID of the album",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successfully retrieved a list of all testimonies with the same album id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Testimonies not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/testimony/delete/{id}": {
+			"delete": {
+				"summary": "Delete a testimony",
+				"tags": ["Testimony"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the testimony to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Testimony deleted successfully"
+					},
+					"404": {
+						"description": "Testimony not found"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/auth/signup": {
+			"post": {
+				"summary": "Signup with first name, last name, email and password",
+				"tags": ["User"],
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Information about the user to signup",
+						"schema": {
+							"$ref": "#/definitions/signup"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Successfully signed up"
+					},
+					"400": {
+						"description": "Bad request. Invalid input"
+					}
+				}
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"summary": "Login with email and password",
+				"tags": ["User"],
+				"parameters": [
+					{
+						"name": "email",
+						"in": "body",
+						"description": "The email used to login",
+						"schema": {
+							"type": "string",
+							"default": "adad@gmail.com"
+						}
+					},
+					{
+						"name": "password",
+						"in": "body",
+						"description": "The password used to login",
+						"schema": {
+							"type": "string",
+							"default": "password"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully logged in"
+					},
+					"401": {
+						"description": "Unauthorized. Invalid credentials"
+					}
+				}
+			}
+		}
+	},
+	"tags": [
+		{
+			"name": "Album",
+			"description": "APIs concerned with the albums"
+		},
+		{
+			"name": "Photo",
+			"description": "APIs concerned with the photos"
+		},
+		{
+			"name": "Story",
+			"description": "APIs concerned with the stories"
+		},
+		{
+			"name": "Testimony",
+			"description": "APIs concerned with the testimonies"
+		},
+		{
+			"name": "User",
+			"description": "APIs concerned with the user authentication and authorisation"
+		}
+	],
+	"definitions": {
+		"Album": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"required": true
+				},
+				"description": {
+					"type": "string"
+				}
+			}
+		},
+		"signup": {
+			"type": "object",
+			"properties": {
+				"firstName": {
+					"type": "string",
+					"required": true,
+					"description": "The first name of the user"
+				},
+				"lastName": {
+					"type": "string",
+					"required": true,
+					"description": "The last name of the user"
+				},
+				"email": {
+					"type": "string",
+					"description": "The email of the user",
+					"required": true,
+					"default": "@gmail.com"
+				},
+				"password": {
+					"type": "string",
+					"description": "The password to be used while logging in"
+				}
+			}
+		}
+	}
 }

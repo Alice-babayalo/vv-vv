@@ -1,24 +1,28 @@
 import mongoose from "mongoose";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
-const albumShema = mongoose.Schema({
-    _id: {
-        type: String,
-        default: uuidv4
-    },
-    name: {
-        type: "string",
-        required: true
-    },
-    description:{
-        type: "String"
-    }
-},
-{
-    timestamps: true 
-}
+const albumSchema = mongoose.Schema(
+	{
+		_id: {
+			type: String,
+			default: uuidv4,
+		},
+		name: {
+			type: String,
+			required: true,
+		},
+		description: {
+			type: String,
+		},
+		photos: {
+			type: [String],
+		},
+	},
+	{
+		timestamps: true,
+	}
 );
 
-const albumModel = mongoose.model('Album', albumShema)
+const albumModel = mongoose.model("Album", albumSchema);
 
-export default albumModel
+export default albumModel;
