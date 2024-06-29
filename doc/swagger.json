@@ -6,7 +6,7 @@
 		"version": "1.0.1"
 	},
 	"production": "vv-vv.onrender.com",
-	"deevelopment": "http://localhost:10000/",
+	"deevelopment": "http://localhost:10000",
 	"basePath": "/api",
 	"schemes": ["https", "http"],
 	"securityDefinitions": {
