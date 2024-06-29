@@ -2,6 +2,10 @@ import asyncWrapper from "../middleware/async.js";
 import {BadRequestError}  from "../errors/index.js";
 import { validationResult } from 'express-validator';
 import testimonyModel from "../model/testimonial.model.js";
+import { sendEmail } from "../utils/sendEmail.js";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 export const addTestimony = asyncWrapper (async (req, res, next) => {
@@ -10,6 +14,12 @@ export const addTestimony = asyncWrapper (async (req, res, next) => {
         return next(new BadRequestError(errors.array()[0].msg));
     }
     const testimony = await testimonyModel.create(req.body)
+
+    sendEmail(
+        process.env.EMAIL_USER,
+        "New Testimony from Isaac and Fatma marriage website",
+        "the user who wrote the testimony: "+ req.body.name +"\nhere are the details of the the testimony:\n"+req.body.testimony
+    )
     res.status(201).json({
         message: "Testimony added successfully",
         testimony
