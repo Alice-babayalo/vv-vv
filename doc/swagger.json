@@ -252,6 +252,37 @@
 				]
 			}
 		},
+
+		"/rubumu/AllAlbumsWithAtleast3Photos": {
+			"get": {
+				"summary": "List all albums with atlest 3 photos",
+				"description": "The list of all albums is retrieved from the database",
+				"tags": ["Arubumu"],
+				"responses": {
+					"200": {
+						"description": "successfully retrieved a list of all albums",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Albums not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
 		"/rubumu/update/{id}": {
 			"patch": {
 				"summary": "Update an existing album",

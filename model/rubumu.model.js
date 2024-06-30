@@ -24,7 +24,7 @@ const albumSchema = mongoose.Schema({
 albumSchema.virtual('photos', {
     ref: 'Photo',
     localField: '_id',
-    foreignField: 'rubumu'
+    foreignField: 'album'
 });
 
 const alubumu = mongoose.model('Rubumu', albumSchema);

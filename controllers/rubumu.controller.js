@@ -38,13 +38,32 @@ export const allRubumu = asyncWrapper(async (req, res, next) => {
             ...album.toObject(),
             photos: album.photos.map(photo => photo.url)
         }));
-        console.log(albumsWithPhotos.photos);
         res.status(200).json({
             success: true,
             number_of_albums: albumsWithPhotos.length,
             allalbums: albumsWithPhotos
         });
 });
+export const albumsWithAtleast3Photos = asyncWrapper (async(req, res, next)=>{
+
+    const albums = await alubumu.find().populate('photos');
+
+    const albumsWithPhotos = albums
+            .map(album => ({
+                ...album.toObject(),
+                photos: album.photos.map(photo => ({
+                    id: photo._id,
+                    url: photo.url
+                }))
+            }))
+            .filter(album => album.photos.length >= 3);
+
+            res.status(200).json({
+                success: true,
+                numberOfAlbums: albumsWithPhotos.length,
+                albums: albumsWithPhotos
+            });
+})
 
 export const updateRubumu = asyncWrapper(async (req, res, next) => {
 	const errors = validationResult(req);
