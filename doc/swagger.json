@@ -22,11 +22,19 @@
 		}
 	],
 	"paths": {
-		"/album/add": {
+
+		"/album/addAlbum": {
 			"post": {
-				"summary": "create a new album",
+				"summary": "create a new album and add atlease three Photos at once",
 				"tags": ["Album"],
 				"parameters": [
+					{
+						"name": "photos",
+						"in": "formData",
+						"description": "Photo file",
+						"required": true,
+						"type": "file"
+					},
 					{
 						"name": "body",
 						"in": "body",
@@ -117,7 +125,7 @@
 				]
 			}
 		},
-		"/album/delete/{id": {
+		"/album/delete/{id}": {
 			"delete": {
 				"summary": "Delete an album",
 				"tags": ["Album"],
@@ -145,6 +153,209 @@
 				]
 			}
 		},
+		"/album/getOneAlbum/{id}": {
+			"get": {
+				"summary": "List all properties of a specific album",
+				"description": "The list of all properties of a specific album is retrieved from the database",
+				"tags": ["Album"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the album",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successfully retrieved a list of all properties of a specific album",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "album not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+
+		"/rubumu/add": {
+			"post": {
+				"summary": "create a new album by providing the name and description of the album to be created and add photos after creating the album in order to add photos using the album ID",
+				"tags": ["Arubumu"],
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "New album to be created",
+						"schema": {
+							"$ref": "#/definitions/Album"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Album created successfully"
+					},
+					"400": {
+						"description": "Bad request. Invalid input"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/rubumu/all": {
+			"get": {
+				"summary": "List all albums",
+				"description": "The list of all albums is retrieved from the database",
+				"tags": ["Arubumu"],
+				"responses": {
+					"200": {
+						"description": "successfully retrieved a list of all albums",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Albums not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/rubumu/update/{id}": {
+			"patch": {
+				"summary": "Update an existing album",
+				"tags": ["Arubumu"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the album to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Album to be updated ",
+						"schema": {
+							"$ref": "#/definitions/Album"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Album updated successfully"
+					},
+					"404": {
+						"description": "Album not found"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/rubumu/delete/{id}": {
+			"delete": {
+				"summary": "Delete an album",
+				"tags": ["Arubumu"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the album to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Album deleted successfully"
+					},
+					"404": {
+						"description": "Album not found"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+		"/rubumu/get/{id}": {
+			"get": {
+				"summary": "List all properties of a specific album",
+				"description": "The list of all properties of a specific album is retrieved from the database",
+				"tags": ["Arubumu"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the album",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successfully retrieved a list of all properties of a specific album",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "album not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				},
+				"security": [
+					{
+						"apiKeyAuth": []
+					}
+				]
+			}
+		},
+
 		"/photo/add/{albumId}": {
 			"post": {
 				"summary": "Add a new photo",
@@ -587,6 +798,10 @@
 		{
 			"name": "Testimony",
 			"description": "APIs concerned with the testimonies"
+		},
+		{
+			"name":"Arubumu",
+			"description":"Albums concerned with adding albums and adding photos with the album id"
 		},
 		{
 			"name": "User",

@@ -1,6 +1,7 @@
 import asyncWrapper from "../middleware/async.js";
 import cloudinary from "../middleware/cloudinary.js";
 import albumModel from "../model/album.model.js";
+import alubumu from "../model/rubumu.model.js"
 import photoModel from "../model/photo.model.js";
 
 export const addPhotos = asyncWrapper(async (req, res, next) => {
@@ -12,7 +13,7 @@ export const addPhotos = asyncWrapper(async (req, res, next) => {
             message: "Album ID is required."
         });
     }
-    const album = await albumModel.findById(albumId);
+    const album = await alubumu.findById(albumId);
     if(!album){
         return res.status(404).json({
             success: false,
@@ -35,7 +36,7 @@ export const addPhotos = asyncWrapper(async (req, res, next) => {
             url: result.secure_url,
             album: albumId
         }));
-
+        await photoModel.create(photos)
         res.status(200).json({ message: "Photos added successfully!", photos: photos });
 });
 
@@ -50,7 +51,7 @@ export const deletePhoto = asyncWrapper( async (req, res, next)=>{
 
 export const getPhotoByAlbumId = asyncWrapper (async (req, res, next) =>{
     const {albumId} = req.params;
-    const findAlbum = await albumModel.findById(albumId)
+    const findAlbum = await alubumu.findById(albumId)
     if (!findAlbum){
         return res.status(404).json({
             message:"Photos not found"

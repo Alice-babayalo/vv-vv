@@ -10,25 +10,20 @@ export const addStory = asyncWrapper( async( req, res, next ) => {
     if (!errors.isEmpty()) {
         return next(new BadRequestError(errors.array()[0].msg));
     }
-    const result = await cloudinary.uploader.upload(req.file.path, function (err, result) {
-        if (err) {
-            console.log(err)
-            return res.status(500).json({ message: "error in uploading file" })
-        }
-    })
+     const result = await cloudinary.uploader.upload(req.file.path);
+        
+        const story = new storyModel({
+            title: req.body.title,
+            content: req.body.content,
+            story_photo_url: result.secure_url
+        });
 
-    const story = new storyModel({
-        title: req.body.title,
-        content: req.body.content,
-        story_photo_url: result.secure_url
-    })
+        await story.save();
 
-    story.save();
-
-    res.status(201).json({
-        message: "Story created successfully!",
-        story: story
-    })
+        res.status(201).json({
+            message: "Story created successfully!",
+            story: story
+        });
 })
 
 export const deleteStory = asyncWrapper (async (req, res, next) => {

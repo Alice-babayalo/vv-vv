@@ -11,7 +11,7 @@ const photoShema = mongoose.Schema({
     },
     album: {
         type: String,
-        ref: 'Album',
+        ref: 'Rubumu',
         required: true
     }
 },

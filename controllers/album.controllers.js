@@ -1,6 +1,7 @@
 import { validationResult } from "express-validator";
 import albumModel from "../model/album.model.js";
 import photoModel from "../model/photo.model.js";
+import alubumu from "../model/rubumu.model.js";
 import cloudinary from "../middleware/cloudinary.js";
 import asyncWrapper from "../middleware/async.js";
 import { BadRequestError } from "../errors/index.js";

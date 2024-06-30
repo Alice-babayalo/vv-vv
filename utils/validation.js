@@ -14,12 +14,12 @@ export const testimonialValidation = [
 // Validation for album
 export const albumValidation = [
 	body("name", "Name of the album must be provided").not().isEmpty(),
-	body("photos").custom((value, { req }) => {
-		if (!req.files || req.files.length !== 3) {
-			throw new Error("Please upload 3 images per album");
-		}
-		return true;
-	}),
+	// body("photos").custom((value, { req }) => {
+	// 	if (!req.files || req.files.length !== 3) {
+	// 		throw new Error("Please upload 3 images per album");
+	// 	}
+	// 	return true;
+	// }),
 ];
 
 // Validation for sign up
