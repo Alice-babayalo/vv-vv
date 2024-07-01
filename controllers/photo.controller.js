@@ -48,6 +48,44 @@ export const deletePhoto = asyncWrapper( async (req, res, next)=>{
     })
 })
 
+export const updatePhoto = asyncWrapper ( async (req, res, next) => {
+    const photoId = await photoModel.findById(req.params.id);
+    if(!photoId){
+        return res.status(404).json({message: "Photo not found"})
+    }
+    const albumId = req.body.album;
+    const validAlbum = await alubumu.findById(albumId);
+    if(!validAlbum){
+        return res.status(404).json({message: "album not found"})
+    }
+
+    const photo = await photoModel.findByIdAndUpdate(photoId, req.body, {new: true})
+
+    res.status(200).json({
+        message: "Photo album updated successfully!",
+        Photo: photo
+    })
+})
+
+export const replacePhoto = asyncWrapper ( async (req, res, next) => {
+    const { id } = req.params;
+    const photo = await photoModel.findById(id);
+    if (!photo) {
+      return res.status(404).json({ message: 'Photo not found' });
+    }
+    const image = req.files;
+
+    if (!image) {
+        return res.status(400).json({ message: 'No image files provided' });
+    }
+    const PhotoUrl = await cloudinary.uploader.upload(image.path, {
+        resource_type: "auto"
+    });
+    photo.url = PhotoUrl.secure_url;
+    await photo.save();
+    return res.status(200).json({ message: 'Photo replaced successfully', photo });
+});
+
 
 export const getPhotoByAlbumId = asyncWrapper (async (req, res, next) =>{
     const {albumId} = req.params;
