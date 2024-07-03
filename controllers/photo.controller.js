@@ -73,7 +73,7 @@ export const replacePhoto = asyncWrapper ( async (req, res, next) => {
     if (!photo) {
       return res.status(404).json({ message: 'Photo not found' });
     }
-    const image = req.files;
+    const image = req.file;
 
     if (!image) {
         return res.status(400).json({ message: 'No image files provided' });

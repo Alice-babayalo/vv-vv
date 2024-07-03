@@ -555,42 +555,6 @@
 				]
 			}
 		},
-		"/photo/replace/{id}": {
-			"patch": {
-				"summary": "Replace a photo in an album",
-				"tags": ["Photo"],
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"description": "ID of the album to update",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "image",
-						"in": "formData",
-						"description": "Photo file",
-						"required": true,
-						"type": "file"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Phooto replaced successfully"
-					},
-					"404": {
-						"description": "photo not found"
-					}
-				},
-				"security": [
-					{
-						"apiKeyAuth": []
-					}
-				]
-			}
-		},
-
 		"/story/add": {
 			"post": {
 				"summary": "Add a new story",
