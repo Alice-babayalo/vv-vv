@@ -1,5 +1,5 @@
 import express from 'express';
-import { SignUp, logIn, ValidateOpt, ResetPassword, logout, ForgotPassword } from '../controllers/user.controller.js';
+import { SignUp, logIn, ValidateOpt, ResetPassword, logout, ForgotPassword, changePassword} from '../controllers/user.controller.js';
 import { signUpValidations, logInValidations, otpValidation, resetPasswordValidation, forgotPasswordValidation } from '../utils/validation.js';
 
 
@@ -11,4 +11,5 @@ userRouter.post('/verify', otpValidation, ValidateOpt);
 userRouter.post('/forgotPassword', forgotPasswordValidation, ForgotPassword);
 userRouter.post('/resetPassword/:resetToken', resetPasswordValidation, ResetPassword);
 userRouter.get('/logout', logout);
+userRouter.post('/changePassword', changePassword);
 

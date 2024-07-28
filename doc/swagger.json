@@ -847,7 +847,33 @@
                     }
                 }
             }
+        },
+		"/user/changePassword": {
+            "post": {
+                "summary": "Change Password",
+                "description": "The user changes the password for more privacy",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Privacy"
+                        },
+                        "required": true,
+                        "description": "Enter new Password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
         }
+
 	},
 	"tags": [
 		{
@@ -916,6 +942,26 @@
                 }
             }
         },
+		"Privacy": {
+			"type": "object",
+			"properties": {
+				"oldPassword": {
+					"type":"string",
+					"description": "the old password",
+					"required": true
+				},
+				"newPass": {
+					"type":"string",
+					"description": "the new password",
+					"required": true
+				},
+				"confirmPass": {
+					"type":"string",
+					"description": "confirm the new password",
+					"required": true
+				}
+			}
+		},
 		"photo":{
 			"type":"object",
 			"properties": {

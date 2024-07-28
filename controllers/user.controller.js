@@ -220,6 +220,38 @@ export const ResetPassword = asyncWrapper(async (req, res, next) => {
 		});
 	}
 });
+export const changePassword = asyncWrapper( async (req, res, next) => {
+	const {oldPassword, newPass, confirmPass} = req.body;
+
+	const foundUser = await userModel.findById(req.body.id);
+	//find the user who wants to change the password
+
+	if (!foundUser) {
+		return next(new BadRequestError("User not found!"));
+	}
+	//Now we are cheching if the user entered the correct current password in order to allow him or her to change the password
+	const isPassword = await bcryptjs.compareSync(
+		req.body.oldPassword,
+		foundUser.password
+	);
+	if (!isPassword) {
+		return next(new BadRequestError("Invalid password!"));
+	}
+
+	//check the password entered twice if they match so that the user assures to know the new password
+	if (req.body.newPass !== req.body.confirmPass){
+		return next(new BadRequestError("Password not match!"));
+	}
+	const hashedPassword = await bcryptjs.hashSync(req.body.confirmPass, 10);
+	foundUser.password = hashedPassword;
+
+	const savedUser = await foundUser.save();
+	if (savedUser) {
+		return res.status(200).json({
+			message: "Your password has been changed!",
+		});
+	}
+})
 
 export const logout = asyncWrapper(async (req, res, next) => {
 	res.clearCookie("token");
