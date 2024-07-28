@@ -14,12 +14,6 @@ Welcome to **VV-VV**, a beautiful platform for couples to celebrate their marria
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- Node.js
-- Express.js
-- MongoDB
-
 ### Usage
 
 1. **Create an Account**: Sign up as a couple or as an individual.
@@ -27,6 +21,11 @@ Welcome to **VV-VV**, a beautiful platform for couples to celebrate their marria
 3. **Upload Photos**: Add photos to your albums from your dashboard.
 4. **Share Your Story**: Write and publish your love story to inspire others.
 
+### Prerequisites
+
+- Node.js
+- Express.js
+- MongoDB
 
 ## 📧 Contact
 
