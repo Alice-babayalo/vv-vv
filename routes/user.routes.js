@@ -11,5 +11,5 @@ userRouter.post('/verify', otpValidation, ValidateOpt);
 userRouter.post('/forgotPassword', forgotPasswordValidation, ForgotPassword);
 userRouter.post('/resetPassword/:resetToken', resetPasswordValidation, ResetPassword);
 userRouter.get('/logout', logout);
-userRouter.post('/changePassword', changePassword);
+userRouter.post('/changePassword/:id', changePassword);
 

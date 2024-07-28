@@ -223,7 +223,7 @@ export const ResetPassword = asyncWrapper(async (req, res, next) => {
 export const changePassword = asyncWrapper( async (req, res, next) => {
 	const {oldPassword, newPass, confirmPass} = req.body;
 
-	const foundUser = await userModel.findById(req.body.id);
+	const foundUser = await userModel.findById(req.params.id);
 	//find the user who wants to change the password
 
 	if (!foundUser) {

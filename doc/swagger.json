@@ -848,7 +848,7 @@
                 }
             }
         },
-		"/user/changePassword": {
+		"/user/changePassword/{id}": {
             "post": {
                 "summary": "Change Password",
                 "description": "The user changes the password for more privacy",
