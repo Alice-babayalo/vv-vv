@@ -856,6 +856,13 @@
                     "User"
                 ],
                 "parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the album to update",
+						"required": true,
+						"type": "string"
+					},
                     {
                         "in": "body",
                         "name": "body",
