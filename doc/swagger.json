@@ -859,7 +859,7 @@
 					{
 						"name": "id",
 						"in": "path",
-						"description": "ID of the album to update",
+						"description": "ID of the user who wants to change the password",
 						"required": true,
 						"type": "string"
 					},
