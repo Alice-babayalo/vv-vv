@@ -878,7 +878,12 @@
                         "description": "Success"
                     }
                 }
-            }
+            },
+			"security": [
+				{
+					"apiKeyAuth": []
+				}
+			]		
         }
 
 	},
