@@ -237,10 +237,13 @@ export const changePassword = asyncWrapper( async (req, res, next) => {
 	if (!isPassword) {
 		return next(new BadRequestError("Invalid password!"));
 	}
+	if (req.body.oldPassword == req.body.newPass || req.body.oldPassword == req.body.confirmPass){
+		return next(new BadRequestError("The new password must be different from the old password"));
+	}
 
 	//check the password entered twice if they match so that the user assures to know the new password
 	if (req.body.newPass !== req.body.confirmPass){
-		return next(new BadRequestError("Password not match!"));
+		return next(new BadRequestError("Password don't match!"));
 	}
 	const hashedPassword = await bcryptjs.hashSync(req.body.confirmPass, 10);
 	foundUser.password = hashedPassword;

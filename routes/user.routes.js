@@ -1,7 +1,7 @@
 import express from 'express';
 import { SignUp, logIn, ValidateOpt, ResetPassword, logout, ForgotPassword, changePassword} from '../controllers/user.controller.js';
 import { signUpValidations, logInValidations, otpValidation, resetPasswordValidation, forgotPasswordValidation } from '../utils/validation.js';
-
+import authMiddleware from '../middleware/authorisation.js'
 
 export const userRouter = express.Router();
 
@@ -11,5 +11,5 @@ userRouter.post('/verify', otpValidation, ValidateOpt);
 userRouter.post('/forgotPassword', forgotPasswordValidation, ForgotPassword);
 userRouter.post('/resetPassword/:resetToken', resetPasswordValidation, ResetPassword);
 userRouter.get('/logout', logout);
-userRouter.post('/changePassword/:id', changePassword);
+userRouter.post('/changePassword/:id', authMiddleware, changePassword);
 
